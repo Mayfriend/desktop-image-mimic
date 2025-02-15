@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -109,6 +108,13 @@ const Index = () => {
                 <Input className="w-2/3" />
               </div>
             </div>
+          </div>
+
+          {/* Save Button */}
+          <div className="flex justify-end mt-6">
+            <Button variant="outline" className="bg-white hover:bg-gray-100 text-[#1a65a3] border-[#1a65a3]">
+              Save
+            </Button>
           </div>
         </div>
       </div>
