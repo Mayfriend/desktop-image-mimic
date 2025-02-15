@@ -2,9 +2,45 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useState } from "react";
+import { toast } from "sonner";
 
 const Index = () => {
   const isMobile = useIsMobile();
+
+  // Camera configuration state
+  const [cameraConfig, setCameraConfig] = useState({
+    ipAddress: "",
+    username: "",
+    password: "",
+    channel: ""
+  });
+
+  // OSD configuration state
+  const [osdConfig, setOsdConfig] = useState({
+    size: "",
+    id: "",
+    x: "",
+    y: ""
+  });
+
+  // Balance configuration state
+  const [balanceConfig, setBalanceConfig] = useState({
+    port: "",
+    baudrate: ""
+  });
+
+  const handleSave = () => {
+    // Here you would typically send this data to your backend
+    const configData = {
+      camera: cameraConfig,
+      osd: osdConfig,
+      balance: balanceConfig
+    };
+    
+    console.log('Saving configuration:', configData);
+    toast.success("Configuração salva com sucesso!");
+  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -48,19 +84,36 @@ const Index = () => {
             <div className="space-y-4">
               <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-2">
                 <label className="text-sm text-gray-600">Endereço IP:</label>
-                <Input className="w-full md:w-2/3" />
+                <Input 
+                  className="w-full md:w-2/3" 
+                  value={cameraConfig.ipAddress}
+                  onChange={(e) => setCameraConfig({...cameraConfig, ipAddress: e.target.value})}
+                />
               </div>
               <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-2">
                 <label className="text-sm text-gray-600">Usuário:</label>
-                <Input className="w-full md:w-2/3" />
+                <Input 
+                  className="w-full md:w-2/3"
+                  value={cameraConfig.username}
+                  onChange={(e) => setCameraConfig({...cameraConfig, username: e.target.value})}
+                />
               </div>
               <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-2">
                 <label className="text-sm text-gray-600">Senha:</label>
-                <Input type="password" className="w-full md:w-2/3" />
+                <Input 
+                  type="password" 
+                  className="w-full md:w-2/3"
+                  value={cameraConfig.password}
+                  onChange={(e) => setCameraConfig({...cameraConfig, password: e.target.value})}
+                />
               </div>
               <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-2">
                 <label className="text-sm text-gray-600">Canal:</label>
-                <Input className="w-full md:w-2/3" />
+                <Input 
+                  className="w-full md:w-2/3"
+                  value={cameraConfig.channel}
+                  onChange={(e) => setCameraConfig({...cameraConfig, channel: e.target.value})}
+                />
               </div>
             </div>
           </div>
@@ -77,19 +130,35 @@ const Index = () => {
             <div className="space-y-4">
               <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-2">
                 <label className="text-sm text-gray-600">Tamanho:</label>
-                <Input className="w-full md:w-2/3" />
+                <Input 
+                  className="w-full md:w-2/3"
+                  value={osdConfig.size}
+                  onChange={(e) => setOsdConfig({...osdConfig, size: e.target.value})}
+                />
               </div>
               <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-2">
                 <label className="text-sm text-gray-600">ID:</label>
-                <Input className="w-full md:w-2/3" />
+                <Input 
+                  className="w-full md:w-2/3"
+                  value={osdConfig.id}
+                  onChange={(e) => setOsdConfig({...osdConfig, id: e.target.value})}
+                />
               </div>
               <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-2">
                 <label className="text-sm text-gray-600">X:</label>
-                <Input className="w-full md:w-2/3" />
+                <Input 
+                  className="w-full md:w-2/3"
+                  value={osdConfig.x}
+                  onChange={(e) => setOsdConfig({...osdConfig, x: e.target.value})}
+                />
               </div>
               <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-2">
                 <label className="text-sm text-gray-600">Y:</label>
-                <Input className="w-full md:w-2/3" />
+                <Input 
+                  className="w-full md:w-2/3"
+                  value={osdConfig.y}
+                  onChange={(e) => setOsdConfig({...osdConfig, y: e.target.value})}
+                />
               </div>
             </div>
           </div>
@@ -105,18 +174,30 @@ const Index = () => {
             <div className="space-y-4">
               <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-2">
                 <label className="text-sm text-gray-600">Porta:</label>
-                <Input className="w-full md:w-2/3" />
+                <Input 
+                  className="w-full md:w-2/3"
+                  value={balanceConfig.port}
+                  onChange={(e) => setBalanceConfig({...balanceConfig, port: e.target.value})}
+                />
               </div>
               <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-2">
                 <label className="text-sm text-gray-600">Baudrate:</label>
-                <Input className="w-full md:w-2/3" />
+                <Input 
+                  className="w-full md:w-2/3"
+                  value={balanceConfig.baudrate}
+                  onChange={(e) => setBalanceConfig({...balanceConfig, baudrate: e.target.value})}
+                />
               </div>
             </div>
           </div>
 
           {/* Save Button */}
           <div className="flex justify-end mt-6">
-            <Button variant="outline" className="bg-white hover:bg-gray-100 text-[#1a65a3] border-[#1a65a3] w-full md:w-auto">
+            <Button 
+              variant="outline" 
+              className="bg-white hover:bg-gray-100 text-[#1a65a3] border-[#1a65a3] w-full md:w-auto"
+              onClick={handleSave}
+            >
               Save
             </Button>
           </div>
